@@ -1,0 +1,31 @@
+<div class="alert alert-success"><%= flash[:success] %></div>
+<div class="alert alert-error"><%= flash[:error] %></div>
+<div class="container">
+  <h1>Send Message<h1>
+  <h3>Message</h3> 
+  <%= form_for @poll, url: send_message_user_polls_path(format: :json), method: :post do |f|%>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    <%= f.label :type %>
+    <%= f.text_field :type %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    <%= f.label :url %>
+    <%= f.text_field :url %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    <br>
+    <%= f.label :expires_at %>
+    <%= f.datetime_select :expires_at, ampm: true %>
+    <br>
+    <br>
+    <h3>Options</h3>
+    <%= f.fields_for :options do |option| %>
+      <div class='links'>
+        <%= render 'option_fields', :f => option%>
+        <code><%= link_to_add_association 'Add options', f, :options %></code>
+        <span class="glyphicon glyphicon-plus"></span>
+      </div>
+    <% end%>
+    <%= f.button "Send", :class => "btn btn-success"%>
+  <% end %>
+</div>
